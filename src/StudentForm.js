@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import addStudent from './helpers/data/StudentData';
+import PropTypes from 'prop-types';
+import { addStudent } from './helpers/data/StudentData';
 
-function StudentForm() {
+function StudentForm({ formTitle }) {
   const [student, setStudent] = useState({
     name: '',
     teacher: '',
@@ -27,13 +28,13 @@ function StudentForm() {
       autoComplete='off'
       onSubmit={handleSubmit}
       >
-        <h2>New Student Form</h2>
+        <h2>{formTitle}</h2>
         <label>Name: </label>
         <input
         name='name'
         type='text'
         placeholder='Name'
-        value={student.name}
+        value={student.name.value}
         onChange={handleInputChange}
         ></input>
         <label>Teacher: </label>
@@ -41,7 +42,7 @@ function StudentForm() {
         name='teacher'
         type='text'
         placeholder='Teacher'
-        value={student.teacher}
+        value={student.teacher.value}
         onChange={handleInputChange}
         ></input>
         <label>Grade: </label>
@@ -49,7 +50,7 @@ function StudentForm() {
         name='grade'
         type='number'
         placeholder='Grade'
-        value={student.grade}
+        value={student.grade.value}
         onChange={handleInputChange}
         ></input>
         <button type='submit'>Submit</button>
@@ -57,5 +58,9 @@ function StudentForm() {
     </div>
   );
 }
+
+StudentForm.propTypes = {
+  formTitle: PropTypes.string.isRequired
+};
 
 export default StudentForm;

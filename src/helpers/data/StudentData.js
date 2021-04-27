@@ -3,6 +3,12 @@ import firebaseConfig from '../apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
+const getStudents = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/students.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 const addStudent = (object) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/students.json`, object)
     .then((response) => {
@@ -13,4 +19,4 @@ const addStudent = (object) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default addStudent;
+export { addStudent, getStudents };
