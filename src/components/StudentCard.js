@@ -17,7 +17,7 @@ const StudentCard = ({
     <CardTitle tag="h5">{name}</CardTitle>
     <CardText>Grade: {grade}</CardText>
     <CardText>Teacher: {teacher}</CardText>
-    <Button onClick={handleClick}>Print Student</Button>
+    {handleClick ? <Button onClick={handleClick}>Print Student</Button> : ''}
   </Card>
 );
 
