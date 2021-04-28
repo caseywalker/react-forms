@@ -13,13 +13,17 @@ function App() {
 
   return (
     <div className='App'>
-      <StudentForm formTitle='Student Form' />
+      <StudentForm formTitle='Student Form'
+      setStudents={setStudents}
+      />
       <hr/>
       {students.map((studentInfo) => (
         <StudentCard key={studentInfo.firebaseKey}
+        firebaseKey={studentInfo.firebaseKey}
         name={studentInfo.name}
         teacher={studentInfo.teacher}
         grade={Number(studentInfo.grade)}
+        setStudents={setStudents}
         />
       ))}
     </div>
