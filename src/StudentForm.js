@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addStudent } from './helpers/data/StudentData';
+import { addStudent, updateStudent } from './helpers/data/StudentData';
 
-function StudentForm({ formTitle, setStudents }) {
+function StudentForm({
+  formTitle,
+  setStudents,
+  name,
+  teacher,
+  grade,
+  firebaseKey
+}) {
   const [student, setStudent] = useState({
-    name: '',
-    teacher: '',
-    grade: 0
+    name: name || '',
+    teacher: teacher || '',
+    grade: grade || 0,
+    firebaseKey: firebaseKey || null
   });
 
   const handleInputChange = (e) => {
@@ -18,7 +26,11 @@ function StudentForm({ formTitle, setStudents }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent(student).then((studentsArray) => setStudents(studentsArray));
+    if (student.firebaseKey) {
+      updateStudent(student).then((studentsArray) => setStudents(studentsArray));
+    } else {
+      addStudent(student).then((studentsArray) => setStudents(studentsArray));
+    }
   };
 
   return (
@@ -34,7 +46,7 @@ function StudentForm({ formTitle, setStudents }) {
         name='name'
         type='text'
         placeholder='Name'
-        value={student.name.value}
+        value={student.name}
         onChange={handleInputChange}
         ></input>
         <label>Teacher: </label>
@@ -42,7 +54,7 @@ function StudentForm({ formTitle, setStudents }) {
         name='teacher'
         type='text'
         placeholder='Teacher'
-        value={student.teacher.value}
+        value={student.teacher}
         onChange={handleInputChange}
         ></input>
         <label>Grade: </label>
@@ -50,7 +62,7 @@ function StudentForm({ formTitle, setStudents }) {
         name='grade'
         type='number'
         placeholder='Grade'
-        value={student.grade.value}
+        value={student.grade}
         onChange={handleInputChange}
         ></input>
         <button type='submit'>Submit</button>
@@ -61,7 +73,11 @@ function StudentForm({ formTitle, setStudents }) {
 
 StudentForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
-  setStudents: PropTypes.func
+  setStudents: PropTypes.func,
+  name: PropTypes.string,
+  teacher: PropTypes.string,
+  grade: PropTypes.number,
+  firebaseKey: PropTypes.string
 };
 
 export default StudentForm;
