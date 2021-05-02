@@ -5,6 +5,7 @@ import AddStudent from '../views/AddStudent';
 import Home from '../views/Home';
 import Students from '../views/Students';
 import SingleStudent from '../views/SingleStudent';
+import NotFound from '../views/NotFound';
 
 function Routes({ students, setStudents }) {
   return (
@@ -15,6 +16,7 @@ function Routes({ students, setStudents }) {
       <Route path='/students/:firebaseKey' component={SingleStudent} />
       <Route path='/add-students' component={() => <AddStudent setStudents={setStudents}
       />} />
+      <Route path='*' component={NotFound} />
       </Switch>
     </div>
   );
