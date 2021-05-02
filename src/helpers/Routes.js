@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 import AddStudent from '../views/AddStudent';
 import Home from '../views/Home';
 import Students from '../views/Students';
+import SingleStudent from '../views/SingleStudent';
 
-export default function Routes({ students, setStudents }) {
+function Routes({ students, setStudents }) {
   return (
     <div>
       <Switch>
       <Route exact path='/' component={Home}/>
       <Route exact path='/students' component={() => <Students students={students} setStudents={setStudents} />} />
-      <Route exact path='/add-students' component={() => <AddStudent setStudents={setStudents}
+      <Route path='/students/:firebaseKey' component={SingleStudent} />
+      <Route path='/add-students' component={() => <AddStudent setStudents={setStudents}
       />} />
       </Switch>
     </div>
@@ -22,3 +24,5 @@ Routes.propTypes = {
   students: PropTypes.array.isRequired,
   setStudents: PropTypes.func.isRequired
 };
+
+export default Routes;
